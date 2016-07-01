@@ -1,0 +1,19 @@
+version: '2'
+
+services:
+  web:
+    build: ./meme-texter/
+    ports:
+      - '80:8080'
+    volumes:
+      - ./meme-texter/dist:/usr/share/nginx/html
+    links:
+      - api:api.cloud66.local
+
+  api:
+    build: ./meme_backend
+    ports:
+      - '3000:3000'
+    volumes:
+      - ./meme_backend:/myapp
+
