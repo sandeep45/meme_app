@@ -4,16 +4,20 @@ services:
     git_url: git@github.com:sandeep45/meme-texter.git
     git_branch: master
     command: nginx
-    build_root: ./meme-texter
+    build_root: .
     ports:
       - container: 8080
       - http: 80
+    requires:
+      - "api"
 
   api:
     git_url: git@github.com:sandeep45/meme_backend.git
     git_branch: master
+    build_command: rake db:schema:load
+    deploy_command: rake db:migrate
     command: bundle exec rails s
-    build_root: ./meme_backend
+    build_root: .
     ports:
       - container: 3000
-      - http: 4000
+      - http: 3000
