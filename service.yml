@@ -5,19 +5,15 @@ services:
     git_branch: master
     command: nginx
     build_root: .
-    ports:
-      - container: 8080
-      - http: 80
+    ports: ["8080:80"]
     requires:
       - "api"
 
   api:
     git_url: git@github.com:sandeep45/meme_backend.git
     git_branch: master
-    build_command: rake db:schema:load
-    deploy_command: rake db:migrate
+    build_command: /bin/bash -c 'bundle exec rake db:schema:load'
+    deploy_command: /bin/bash -c 'bundle exec rake db:migrate'
     command: bundle exec rails s
     build_root: .
-    ports:
-      - container: 3000
-      - http: 3000
+    ports: ["3000:3000"]
