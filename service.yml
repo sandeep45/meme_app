@@ -23,4 +23,4 @@ services:
     dns_behaviour: non-versioned
 
 databases:
-  - postgres
+  - postgresql
