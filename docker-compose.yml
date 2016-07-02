@@ -16,4 +16,10 @@ services:
       - '3000:3000'
     volumes:
       - ./meme_backend:/myapp
+    links:
+      - postgres:postgres.cloud66.local
 
+  postgres:
+    image: postgres:9.4
+    ports:
+      - "5432:5432"

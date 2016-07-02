@@ -8,12 +8,19 @@ services:
     ports: ["8080:80"]
     requires:
       - "api"
+    restart_on_deploy: true
+    dns_behaviour: non-versioned
 
   api:
     git_url: git@github.com:sandeep45/meme_backend.git
     git_branch: master
-    build_command: /bin/bash -c 'bundle exec rake db:schema:load'
+    build_command: /bin/bash -c 'bundle exec rake db:create'
     deploy_command: /bin/bash -c 'bundle exec rake db:migrate'
     command: bundle exec rails s
     build_root: .
     ports: ["3000:3000"]
+    restart_on_deploy: true
+    dns_behaviour: non-versioned
+
+databases:
+  - postgres
